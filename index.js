@@ -11,7 +11,9 @@ io.on('connection', socket => {
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg)
   })
-  socket.on('disconnect', () => console.log('user disconnected'))
+  socket.on('disconnect', socket => {
+    io.emit('chat message', `${socket.id}: disconnected`)
+  })
 })
 
 http.listen(3000, function(){
